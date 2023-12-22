@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
+import { useNavigate, useLocation } from "react-router-dom";
 const navigation = [
     { name: 'Dashboard', href: '#', current: true },
     { name: 'Team', href: '#', current: false },
@@ -14,6 +14,14 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+    const navigate = useNavigate();
+
+
+    const handleClick = () => {
+        navigate("/signup")
+    
+}
+    
     return (
         <Disclosure as="nav" className="bg-gray-800">
             {({ open }) => (
@@ -103,12 +111,13 @@ export default function Navbar() {
                                             </Menu.Item>
                                             <Menu.Item>
                                                 {({ active }) => (
-                                                    <a
+                                                    <button
                                                         href="#"
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        onClick={()=>handleClick()}
                                                     >
-                                                        Settings
-                                                    </a>
+                                                       Login
+                                                    </button>
                                                 )}
                                             </Menu.Item>
                                             <Menu.Item>
@@ -116,8 +125,9 @@ export default function Navbar() {
                                                     <a
                                                         href="#"
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        
                                                     >
-                                                        Sign out
+                                                        Settings
                                                     </a>
                                                 )}
                                             </Menu.Item>
