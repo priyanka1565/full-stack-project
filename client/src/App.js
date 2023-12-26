@@ -1,10 +1,13 @@
-import AllRoutes from './components/allroutes/AllRoutes';
+import logo from './logo.svg';
+import SignUp from './pages/login/signUp/signUp';
+
+
 
 function App() {
   return (
-    <>
-    <AllRoutes/>
-    </>
+    <div>
+   <SignUp/>
+  </div>
   );
 }
 
