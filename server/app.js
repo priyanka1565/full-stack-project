@@ -26,6 +26,24 @@ app.post('/register', (req, res) => {
         .catch((err) => res.json(err));
 });
 
+//Login user
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+    LoginModel.findOne({ email: email })
+        .then(user => {
+        if(user){
+            if (user.password === password) {
+                res.json("Login Sucessfully");
+            } else {
+                res.json("The password is incorrect");
+            } 
+        } else {
+            res.json("No record existed");
+        }
+    })
+    
+})
+
 app.listen(Port, async () => {
     try {
         await connectDataBase.connectDataBase();
