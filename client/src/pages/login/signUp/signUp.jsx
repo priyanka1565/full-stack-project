@@ -1,17 +1,35 @@
 import React, { useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function SignUp() {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:5000/register', { name, email, password })
-            .then(result => console.log(result))
-        .catch(err=>console.log(err))
-        
+        if (name !== " " && email !== "" && password !== "" ) {
+            axios.post("https://backend-9mrw.onrender.com/user/register", { name: name, password: password,email:email }).then((res) => {
+                if (res) {
+                    toast.success(`${res?.data?.message}`)
+                }
+                navigate("/login")
+            }).catch((err) => {
+                toast.error(`${err}`)
+            })
+        }
+        else {
+            toast("please enter Valid details")
+        }
+
+    }
+
+    const goToSignIn = () => {
+        navigate("/login")
     }
     return (
         <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
@@ -65,6 +83,7 @@ function SignUp() {
                         Login
                     </button>
                 </form>
+                <ToastContainer/>
             </div>
         </div>
     )
